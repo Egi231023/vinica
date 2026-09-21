@@ -54,10 +54,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CellarProvider memberStatus={session.status}>
           <VisitRecorder slugs={WINERIES.map(w => w.slug)} />
           <Cover />
+          <div id="site-content">
+          <Ribbons />
           <div className="stage">
             <BookStage>{children}</BookStage>
           </div>
-          <Ribbons />
+          </div>
         </CellarProvider>
       </body>
     </html>

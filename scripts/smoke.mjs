@@ -50,8 +50,7 @@ console.log('\nThe book opens and turns');
    already opened the book — so this needs a browser that has not seen it. */
 const firstVisit = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 await firstVisit.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-/* The cover is client-rendered, so it appears on hydration rather than in the
-   first paint. Wait for it rather than sampling at an arbitrary moment. */
+/* The cover exists in the first paint; hydration starts its opening. */
 const coverPlayed = await firstVisit
   .waitForSelector('.cover-stage', { timeout: 5000 })
   .then(() => true)
@@ -59,6 +58,8 @@ const coverPlayed = await firstVisit
 check('cover plays on a first visit', coverPlayed);
 await firstVisit.waitForTimeout(3000);
 check('cover clears itself', (await firstVisit.locator('.cover-stage').count()) === 0);
+check('opening restores content interaction', !(await firstVisit.locator('#site-content').evaluate(element => element.inert)));
+check('six text bookmarks are visible', (await firstVisit.locator('.book-nav a:visible').count()) === 6);
 await firstVisit.reload({ waitUntil: 'domcontentloaded' });
 await firstVisit.waitForTimeout(250);
 check('cover is not replayed on return', (await firstVisit.locator('.cover-stage').count()) === 0);
@@ -68,9 +69,9 @@ await page.goto(BASE + '/', { waitUntil: 'networkidle' });
 await page.keyboard.press('ArrowRight');
 await page.waitForTimeout(900);
 check('arrow key turns the page', new URL(page.url()).pathname === '/chapter/our-story');
-await page.locator('.corner-turn--next').click();
+await page.getByRole('navigation', { name: 'Page navigation' }).getByRole('button', { name: /Next page/ }).click();
 await page.waitForTimeout(900);
-check('page corner turns', new URL(page.url()).pathname === '/chapter/trust');
+check('labelled next-page control turns', new URL(page.url()).pathname === '/chapter/trust');
 await page.goBack();
 await page.waitForTimeout(700);
 check('back button works', new URL(page.url()).pathname === '/chapter/our-story');

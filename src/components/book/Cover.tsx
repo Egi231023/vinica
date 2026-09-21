@@ -1,88 +1,68 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
-/**
- * The cover, and the book opening itself.
- *
- * Rules the brief sets, and this component keeps:
- *  - short, and skippable at any moment;
- *  - never shown twice in a session, so a reader coming back is not made to wait;
- *  - fully bypassed when the reader has asked for reduced motion.
- */
 const SEEN_KEY = 'nv.cover.seen';
 
 export function Cover() {
-  const [state, setState] = useState<'pending' | 'playing' | 'skipped' | 'done'>('pending');
+  const pathname = usePathname();
+  const [state, setState] = useState<'checking' | 'playing' | 'done'>('checking');
+  const skipButton = useRef<HTMLButtonElement>(null);
+  const visible = pathname === '/' && state !== 'done';
 
   useEffect(() => {
+    if (pathname !== '/') { setState('done'); return; }
     let seen = false;
-    try {
-      seen = sessionStorage.getItem(SEEN_KEY) === '1';
-    } catch {
-      // Private browsing, or storage blocked. Play it; no harm done.
-    }
-    const reduced =
-      typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (seen || reduced) {
+    try { seen = sessionStorage.getItem(SEEN_KEY) === '2'; } catch { /* optional storage */ }
+    if (seen || matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setState('done');
       return;
     }
+    try { sessionStorage.setItem(SEEN_KEY, '2'); } catch { /* optional storage */ }
     setState('playing');
-    try {
-      sessionStorage.setItem(SEEN_KEY, '1');
-    } catch {
-      /* not essential */
-    }
-    const timer = setTimeout(() => setState('done'), 2150);
+    // A fallback only: the fade's animationend normally completes the opening.
+    const timer = setTimeout(() => setState('done'), 2900);
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
-    if (state !== 'playing') return;
-    const skip = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' || event.key === 'Enter' || event.key === ' ') setState('skipped');
+    if (!visible) return;
+    const content = document.getElementById('site-content');
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    if (content) content.inert = true;
+    document.body.style.overflow = 'hidden';
+    skipButton.current?.focus({ preventScroll: true });
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); setState('done'); }
+      if (event.key === 'Tab') { event.preventDefault(); skipButton.current?.focus(); }
     };
-    window.addEventListener('keydown', skip);
-    return () => window.removeEventListener('keydown', skip);
-  }, [state]);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      if (content) content.inert = false;
+      document.body.style.overflow = overflow;
+      window.removeEventListener('keydown', onKey);
+      previousFocus?.focus({ preventScroll: true });
+    };
+  }, [visible]);
 
-  useEffect(() => {
-    if (state !== 'skipped') return;
-    const timer = setTimeout(() => setState('done'), 260);
-    return () => clearTimeout(timer);
-  }, [state]);
-
-  if (state === 'pending' || state === 'done') return null;
-
-  return (
-    <div
-      className="cover-stage"
-      data-skipped={state === 'skipped'}
-      role="presentation"
-      onClick={() => setState('skipped')}
-    >
-      <div className="cover">
-        <div className="cover__plate">
-          <p className="cover__mark">
-            North
-            <span className="cover__amp">&amp;</span>
-            Vine
-          </p>
-          <p className="cover__sub">Ten Canadian estates</p>
+  if (!visible) return null;
+  return <>
+    <noscript><style>{'.cover-stage{display:none!important}'}</style></noscript>
+    <div className="cover-stage" data-state={state} role="dialog" aria-modal="true" aria-label="Opening North and Vine"
+      onAnimationEnd={event => {
+        if (event.target === event.currentTarget && event.animationName === 'opening-reveal') setState('done');
+      }}>
+      <div className="opening-book" aria-hidden="true">
+        <div className="opening-paper opening-paper--left"><span>North &amp; Vine</span><p>For the love<br /><em>of wine.</em></p><small>The first edition</small></div>
+        <div className="opening-paper opening-paper--right"><span>A Canadian wine book</span><p>Good wine.<br /><em>A wider world.</em></p><small>Ten wineries. One curious spirit.</small></div>
+        <div className="opening-leaf">
+          <div className="opening-front"><div className="opening-plate"><span className="opening-ornament">❧</span><p>North<br /><em>&amp;</em><br />Vine</p><small>Ten Canadian estates</small></div></div>
+          <div className="opening-back"><span>North &amp; Vine</span><p>For the love<br /><em>of wine.</em></p><small>The first edition</small></div>
         </div>
       </div>
-      <button
-        type="button"
-        className="cover__skip"
-        onClick={(event) => {
-          event.stopPropagation();
-          setState('skipped');
-        }}
-      >
-        Open the book
-      </button>
+      <button ref={skipButton} type="button" className="cover__skip" onClick={() => setState('done')}>Skip opening →</button>
     </div>
-  );
+  </>;
 }

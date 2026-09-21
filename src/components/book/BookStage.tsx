@@ -8,7 +8,7 @@ import { readingOrder } from '@/data/chapters';
  * The book as an object you can handle.
  *
  * Four ways through it, all mapped to the same two moves:
- *   - the corner of the page (click, or hover to see it lift),
+ *   - the labelled previous / next controls,
  *   - arrow keys and Page Up/Down,
  *   - a swipe on touch devices,
  *   - and the table of contents, which is a real index, not a decoration.
@@ -77,7 +77,7 @@ export function BookStage({ children }: { children: React.ReactNode }) {
   /* Keys, but never while someone is typing. */
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (document.querySelector('dialog[open]')) return;
+      if (document.querySelector('dialog[open], .cover-stage')) return;
       const target = event.target as HTMLElement | null;
       if (
         target &&
@@ -105,7 +105,7 @@ export function BookStage({ children }: { children: React.ReactNode }) {
   }, [go, next, prev]);
 
   const onTouchStart = (event: React.TouchEvent) => {
-    if (document.querySelector('dialog[open]') || (event.target as HTMLElement).closest('button, input, select, textarea, a, summary')) { touchStart.current = null; return; }
+    if (document.querySelector('dialog[open], .cover-stage') || (event.target as HTMLElement).closest('button, input, select, textarea, a, summary')) { touchStart.current = null; return; }
     const t = event.touches[0];
     touchStart.current = { x: t.clientX, y: t.clientY };
   };
@@ -131,6 +131,11 @@ export function BookStage({ children }: { children: React.ReactNode }) {
     >
       {children}
 
+      {(prev || next) && <nav className="book-pager" aria-label="Page navigation">
+        {prev ? <button type="button" onClick={() => go(prev.href)}>← <span>Previous page<small>{prev.label}</small></span></button> : <span />}
+        {next && <button type="button" onClick={() => go(next.href)}><span>Next page<small>{next.label}</small></span> →</button>}
+      </nav>}
+
       {turning && (
         <div
           className={`turning-leaf turning-leaf--${turning} paper-surface`}
@@ -138,26 +143,6 @@ export function BookStage({ children }: { children: React.ReactNode }) {
         />
       )}
 
-      {prev && (
-        <button
-          type="button"
-          className="corner-turn corner-turn--prev"
-          onClick={() => go(prev.href)}
-        >
-          <span className="corner-turn__label">← {prev.label}</span>
-          <span className="visually-hidden">Turn back to {prev.label}</span>
-        </button>
-      )}
-      {next && (
-        <button
-          type="button"
-          className="corner-turn corner-turn--next"
-          onClick={() => go(next.href)}
-        >
-          <span className="corner-turn__label">{next.label} →</span>
-          <span className="visually-hidden">Turn to {next.label}</span>
-        </button>
-      )}
     </div>
   );
 }
