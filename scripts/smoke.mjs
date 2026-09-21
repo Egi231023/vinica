@@ -97,6 +97,19 @@ await page.fill('input[type=search]', 'zzzzzz');
 await page.waitForTimeout(1100);
 check('empty result has a state', (await page.locator('.empty-state').count()) > 0);
 
+console.log('\nThe personal passport');
+await page.goto(BASE + '/winery/tawse', { waitUntil: 'networkidle' });
+await page.waitForFunction(() => JSON.parse(localStorage.getItem('nv.cellar.v1') || '{}').visits?.tawse);
+await page.goto(BASE + '/cellar', { waitUntil: 'networkidle' });
+await page.waitForSelector('.passport-stamp[data-visited="true"]');
+check('passport contains ten estates', (await page.locator('.passport-stamp').count()) === 10);
+check('Tawse chapter receives a stamp', await page.locator('.passport-stamp[href$="/winery/tawse"]').getAttribute('data-visited') === 'true');
+const [notebook] = await Promise.all([
+  page.waitForEvent('download'),
+  page.getByRole('button', { name: 'Download your notebook' }).click(),
+]);
+check('notebook can be downloaded', notebook.suggestedFilename() === 'north-and-vine-notebook.json');
+
 console.log('\nThe cellar and the membership gate');
 await page.goto(BASE + '/wine/tawse-quarry-road-unoaked-chardonnay-2024', { waitUntil: 'networkidle' });
 await page.waitForTimeout(600);

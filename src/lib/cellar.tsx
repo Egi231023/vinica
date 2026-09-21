@@ -29,6 +29,7 @@ export interface TastingNote {
 }
 
 export interface CellarState {
+  visits: Record<string, string>;
   saved: string[];
   later: string[];
   notes: TastingNote[];
@@ -36,10 +37,11 @@ export interface CellarState {
   cart: Record<string, number>;
 }
 
-const EMPTY: CellarState = { saved: [], later: [], notes: [], cart: {} };
+const EMPTY: CellarState = { visits: {}, saved: [], later: [], notes: [], cart: {} };
 const KEY = 'nv.cellar.v1';
 
 interface CellarApi extends CellarState {
+  visit: (slug: string) => void;
   ready: boolean;
   memberStatus: MemberSession['status'];
   isSaved: (slug: string) => boolean;
@@ -62,6 +64,8 @@ function read(): CellarState {
     if (!raw) return EMPTY;
     const parsed = JSON.parse(raw) as Partial<CellarState>;
     return {
+      visits: parsed.visits && typeof parsed.visits === 'object' && !Array.isArray(parsed.visits)
+        ? Object.fromEntries(Object.entries(parsed.visits).filter(([key, value]) => /^[a-z0-9-]+$/.test(key) && typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value))) : {},
       saved: Array.isArray(parsed.saved) ? parsed.saved.filter((s) => typeof s === 'string') : [],
       later: Array.isArray(parsed.later) ? parsed.later.filter((s) => typeof s === 'string') : [],
       notes: Array.isArray(parsed.notes) ? (parsed.notes as TastingNote[]) : [],
@@ -111,9 +115,16 @@ export function CellarProvider({
     });
   }, []);
 
+  const visit = useCallback((slug: string) => {
+    setState(current => current.visits[slug] ? current : {
+      ...current, visits: { ...current.visits, [slug]: new Date().toISOString().slice(0, 10) },
+    });
+  }, []);
+
   const api = useMemo<CellarApi>(
     () => ({
       ...state,
+      visit,
       ready,
       memberStatus,
       isSaved: (slug) => state.saved.includes(slug),
@@ -138,7 +149,7 @@ export function CellarProvider({
       emptyCart: () => setState((current) => ({ ...current, cart: {} })),
       clear: () => setState(EMPTY),
     }),
-    [state, ready, memberStatus, toggleIn],
+    [state, ready, memberStatus, toggleIn, visit],
   );
 
   return <CellarContext.Provider value={api}>{children}</CellarContext.Provider>;

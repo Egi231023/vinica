@@ -7,6 +7,8 @@ import '@fontsource/cormorant-garamond/latin-500.css';
 import '@fontsource/cormorant-garamond/latin-600.css';
 import './globals.css';
 
+import { VisitRecorder } from '@/components/WinePassport';
+import { WINERIES } from '@/data/wineries';
 import { Cover } from '@/components/book/Cover';
 import { BookStage } from '@/components/book/BookStage';
 import { Ribbons } from '@/components/book/Ribbons';
@@ -50,6 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </p>
         )}
         <CellarProvider memberStatus={session.status}>
+          <VisitRecorder slugs={WINERIES.map(w => w.slug)} />
           <Cover />
           <div className="stage">
             <BookStage>{children}</BookStage>

@@ -1,3 +1,5 @@
+import { WinePassport } from '@/components/WinePassport';
+import { WINERIES } from '@/data/wineries';
 import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -40,7 +42,7 @@ export default async function CellarPage() {
   return (
     <Spread
       leftHead="Chapter VI · Your Cellar"
-      rightHead="Membership and orders"
+      rightHead="Your personal wine passport"
       leftPage={161}
       rightPage={162}
       left={
@@ -57,6 +59,8 @@ export default async function CellarPage() {
       }
       right={
         <>
+          <WinePassport estates={WINERIES.map(w => ({ slug: w.slug, name: w.shortName, province: w.region.province, ink: w.accent.ink }))} />
+          <details className="editorial-details"><summary>Membership, orders and storage</summary>
           <h3 className="section-title">Where this is kept</h3>
           <p className="gap-note">
             Your saved bottles and tasting notes stay in this browser. They do not sync to another
@@ -102,6 +106,7 @@ export default async function CellarPage() {
             Trial orders are held in memory on the server and do not survive a restart. Nothing was
             charged and nothing will ship.
           </p>
+          </details>
         </>
       }
     />

@@ -1,3 +1,4 @@
+import { BOTTLE_REFERENCES } from '@/data/bottle-references';
 import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -47,6 +48,7 @@ export default async function WinePage({ params }: { params: Promise<{ slug: str
   index.add(wine.availability.sources);
 
   const siblings = winesForWinery(wine.winerySlug).filter((w) => w.slug !== wine.slug);
+  const bottleReference = BOTTLE_REFERENCES[wine.slug];
   const contracted = wine.availability.northAndVine === 'orderable';
 
   return (
@@ -83,6 +85,11 @@ export default async function WinePage({ params }: { params: Promise<{ slug: str
                 : 'Illustrated bottle silhouette · product photograph pending.'}
             </p>
           </div>
+
+          {bottleReference && <p className="marginal">
+            <a className="booklink" href={bottleReference.url} target="_blank" rel="noopener noreferrer">View the original bottle image ↗</a><br />
+            {bottleReference.source}. {bottleReference.note}
+          </p>}
 
           {wine.story && wine.story.length > 0 && (
             <>
