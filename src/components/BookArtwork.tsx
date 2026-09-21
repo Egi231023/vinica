@@ -22,15 +22,15 @@ export function BookArtwork({ name, compact = false, priority = false }: {
         <span className="book-art__zoom" aria-hidden="true">View the plate ↗</span>
       </button>
       <figcaption className="book-art__caption">
-        <span>{art.caption}</span><span className="book-art__credit">North &amp; Vine Atelier · digital watercolor</span>
+        <span>{art.caption}</span><span className="book-art__credit">North &amp; Vine · Art direction: Eugen Chrenko</span>
       </figcaption>
       <dialog ref={dialog} className="art-dialog" aria-labelledby={titleId} onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
         <div className="art-dialog__sheet">
           <button type="button" className="art-dialog__close" onClick={() => dialog.current?.close()} autoFocus aria-label="Close artwork">Close ×</button>
           <img src={`${src}-1536.webp`} width={1536} height={1024} alt={art.alt} loading="lazy" />
-          <p className="chapter-number">North &amp; Vine Atelier</p>
+          <p className="chapter-number">North &amp; Vine</p>
           <h2 id={titleId}>{art.caption}</h2>
-          <p>AI-created digital illustration in a watercolor and ink style. Atelier is our fictional editorial studio signature.</p>
+          <p>Art direction: Eugen Chrenko · The North &amp; Vine collection.</p>
           <p>{'note' in art ? art.note : 'An imagined editorial illustration, not a portrait of a specific estate.'}</p>
           {'source' in art && art.source && <a className="booklink" href={art.source} target="_blank" rel="noopener noreferrer">Visual reference ↗</a>}
         </div>
