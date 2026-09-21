@@ -82,7 +82,7 @@ export function BookStage({ children }: { children: React.ReactNode }) {
       if (
         target &&
         (target.isContentEditable ||
-          ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'SUMMARY'].includes(target.tagName))
+          ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'SUMMARY', 'LABEL'].includes(target.tagName))
       ) {
         return;
       }

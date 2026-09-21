@@ -1981,3 +1981,24 @@ body:has(.art-dialog[open]) { overflow:hidden; }
 .passport-next { font-style:italic; margin:1.5rem 0; }
 @media(max-width:400px) { .passport-grid { gap:1rem .6rem; } .passport-stamp { min-height:160px; } .passport-stamp__name { font-size:.88rem; } }
 @media(prefers-reduced-motion:reduce) { .passport-stamp { transition:none; } }
+
+.guide-progress { display:flex; gap:.6rem; margin:1rem 0 2rem; }
+.guide-progress span { height:3px; flex:1; background:var(--gold-faint); }
+.guide-progress span[data-complete="true"] { background:var(--bordeaux); }
+.guide-options { border:0; padding:0; margin:1.8rem 0; display:grid; gap:.8rem; min-width:0; }
+.guide-option { display:flex; align-items:center; gap:1rem; padding:1.2rem; border:1px solid var(--gold-faint); cursor:pointer; background:rgba(255,255,255,.12); }
+.guide-option[data-selected="true"] { border-color:var(--bordeaux); background:rgba(93,17,40,.045); }
+.guide-option:focus-within { outline:2px solid var(--gold); outline-offset:3px; }
+.guide-option input { accent-color:var(--bordeaux); width:18px; height:18px; flex-shrink:0; }
+.guide-option strong { display:block; font-family:var(--display); font-size:1.45rem; font-weight:500; color:var(--bordeaux-deep); }
+.guide-option small { display:block; color:var(--ink-soft); font-size:.9rem; margin-top:.3rem; }
+.wine-guide h2:focus { outline:none; }
+.guide-summary { font-style:italic; color:var(--ink-soft); }
+.guide-results { padding:0; list-style:none; }
+.guide-result { display:grid; grid-template-columns:65px minmax(0,1fr); gap:1rem; padding:1.5rem 0; border-bottom:1px solid var(--gold-faint); }
+.guide-result h3 { margin:.3rem 0; font:500 1.5rem/1.2 var(--display); }
+.guide-result ul { padding-left:1rem; font-size:.9rem; }
+.guide-result .chapter-number { margin:0; }
+.guide-meta { font-size:.8rem; color:var(--ink-soft); margin:.5rem 0; }
+.wine-guide button:disabled { opacity:.45; cursor:default; }
+@media(max-width:400px) { .guide-option { padding:.9rem; } .guide-result { grid-template-columns:45px minmax(0,1fr); gap:.7rem; } .guide-result svg, .guide-result > img { max-width:45px; } }

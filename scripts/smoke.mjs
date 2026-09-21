@@ -97,6 +97,19 @@ await page.fill('input[type=search]', 'zzzzzz');
 await page.waitForTimeout(1100);
 check('empty result has a state', (await page.locator('.empty-state').count()) > 0);
 
+console.log('\nThe first bottle guide');
+await page.goto(BASE + '/chapter/first-bottle', { waitUntil: 'networkidle' });
+await page.getByRole('radio', { name: /Around the table/ }).check();
+await page.getByRole('button', { name: 'Continue →' }).click();
+await page.getByRole('radio', { name: /Fresh & bright/ }).check();
+await page.getByRole('button', { name: 'Continue →' }).click();
+await page.getByRole('radio', { name: /Take me across regions/ }).check();
+await page.getByRole('button', { name: 'Discover my three wines' }).click();
+check('guide suggests three wines', await page.locator('.guide-result').count() === 3);
+check('suggestions explain the choice', await page.locator('.guide-result ul').count() === 3);
+await page.getByRole('button', { name: 'Change my answers' }).click();
+check('guide keeps previous answers for editing', await page.getByRole('radio', { name: /Around the table/ }).isChecked());
+
 console.log('\nThe personal passport');
 await page.goto(BASE + '/winery/tawse', { waitUntil: 'networkidle' });
 await page.waitForFunction(() => JSON.parse(localStorage.getItem('nv.cellar.v1') || '{}').visits?.tawse);
