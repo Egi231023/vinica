@@ -4,7 +4,7 @@ import { useMemo, useState, useEffect, useDeferredValue } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Bottle } from '@/components/Bottle';
-import type { BottleShape, WineColour } from '@/lib/types';
+import type { BottleShape, WineColour, Photo } from '@/lib/types';
 
 /**
  * The collection: every verified wine, searchable.
@@ -29,6 +29,7 @@ export interface CollectionEntry {
   grapes: string[];
   availability: 'current' | 'archive' | 'unknown';
   hasPhoto: boolean;
+  photo: Photo;
   /** Everything a search should look inside, lower-cased once at build time. */
   haystack: string;
 }
@@ -263,6 +264,7 @@ export function Collection({ entries }: { entries: CollectionEntry[] }) {
                   colour={entry.colour}
                   producerInitials={entry.initials}
                   vintage={entry.vintageSort > 0 ? entry.vintageLabel : undefined}
+                  photo={entry.photo}
                   height={150}
                 />
                 <span className="bottle-link__name">

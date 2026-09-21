@@ -1,17 +1,7 @@
 import type { BottleShape, Photo, WineColour } from '@/lib/types';
 
-/**
- * A bottle drawn, not photographed.
- *
- * We hold no rights-cleared photography yet, and we will not manufacture label
- * imitations to fill the gap. So a bottle is drawn to the correct silhouette
- * for its shape and glass colour, and carries a plain typographic plate in
- * North & Vine's own lettering — recognisably our drawing, not a picture of
- * someone else's label. Where a photograph is missing, the page says so.
- *
- * Replacing a drawing with a real photograph is a data change, not a code
- * change: set `photo.status = 'licensed'` and `photo.src`, and the photograph
- * is used instead. See docs/PHOTOGRAPHY.md.
+/** Original producer photos where authorized; a drawn silhouette for remaining gaps.
+ * Packaging references carry a visible note so they never imply a vintage match.
  */
 
 interface Geometry {
@@ -101,18 +91,14 @@ export function Bottle({
   height?: number;
   className?: string;
 }) {
-  /* A licensed photograph always wins over the drawing. */
-  if (photo?.status === 'licensed' && photo.src) {
-    return (
-      <img
-        src={photo.src}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        style={{ height, width: 'auto' }}
-        className={className}
-      />
-    );
+  if ((photo?.status === 'licensed' || photo?.status === 'authorized') && photo.src) {
+    const base = process.env.NEXT_PUBLIC_NV_ASSET_BASE_PATH ?? '';
+    const src = photo.src.startsWith('/') ? `${base}${photo.src}` : photo.src;
+    return <span className={`bottle-photo ${className ?? ''}`}>
+      <img src={src} alt={photo.alt ?? 'Original bottle photograph'} loading="lazy" decoding="async"
+        style={{ height, maxWidth: '100%', objectFit: 'contain', width: 'auto' }} />
+      {photo.note && <span className="bottle-photo__note">{photo.note}</span>}
+    </span>;
   }
 
   const g = geometry(shape);

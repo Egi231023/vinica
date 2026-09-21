@@ -1,3 +1,15 @@
+# Current authorization and implementation — 2026-09-21
+
+The project owner explicitly confirmed that all ten wineries cooperate and permit original bottle photography on this website, including background removal. This is owner-reported authorization, not an independently inspected licence. It supersedes the earlier publication hold below. No private agreement or personal data is committed. Image metadata uses `authorized` / `owner-confirmed`, not `licensed`.
+
+Ten original producer/distributor assets are displayed on eleven catalogue entries. NV Brut matches the non-vintage product; the other ten entries visibly label their image as a packaging reference, including 2024 where that year is printed. Catalogue vintages and descriptions have not been changed to match images. The remaining 20 entries retain silhouettes pending suitable assets.
+
+Original labels and geometry are preserved. Assets are resized and encoded as WebP; existing alpha is retained. White studio backgrounds blend with the paper using CSS, rather than inventing or repainting labels. These are not all transparent cutout files. Provenance is recorded in `src/data/bottle-photos.ts`. The catalogue, winery shelves, guide and personal cellar share the same image metadata.
+
+Additional sourcing: public Nk’Mip product pages supplied Riesling and White Mer’r’iym photographs. Mission Hill, CedarCreek and Clos du Soleil download attempts returned HTTP 403; their public collection pages did not expose usable product assets in the available text. Tawse’s product page exposed no product photograph. No substitute labels were manufactured for these gaps.
+
+## Historical research record (superseded permission status)
+
 # Photography
 
 ## Where we stand

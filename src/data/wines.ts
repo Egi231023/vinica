@@ -1,3 +1,4 @@
+import { BOTTLE_PHOTOS } from './bottle-photos.ts';
 import type { Wine } from '@/lib/types';
 import { WINERIES_BY_SLUG } from './wineries.ts';
 
@@ -850,6 +851,11 @@ export const WINES: Wine[] = [
     sources: ['wineanorak-benjaminbridge'],
   },
 ];
+
+// Apply reviewed images without changing catalogue vintages or wine descriptions.
+for (const wine of WINES) {
+  if (BOTTLE_PHOTOS[wine.slug]) wine.photo = BOTTLE_PHOTOS[wine.slug];
+}
 
 export const WINES_BY_SLUG: Record<string, Wine> = Object.fromEntries(WINES.map((w) => [w.slug, w]));
 

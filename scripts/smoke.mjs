@@ -114,6 +114,12 @@ check('suggestions explain the choice', await page.locator('.guide-result ul').c
 await page.getByRole('button', { name: 'Change my answers' }).click();
 check('guide keeps previous answers for editing', await page.getByRole('radio', { name: /Around the table/ }).isChecked());
 
+console.log('\nOriginal bottle photographs');
+await page.goto(BASE + '/wine/benjamin-bridge-nv-brut', { waitUntil: 'networkidle' });
+check('original bottle photograph loads', await page.locator('.bottle-photo img').evaluate(img => img.complete && img.naturalWidth > 0));
+await page.goto(BASE + '/wine/inniskillin-vidal-icewine-2019', { waitUntil: 'networkidle' });
+check('reference photograph discloses vintage uncertainty', await page.locator('.bottle-photo__note').isVisible());
+
 console.log('\nThe personal passport');
 await page.goto(BASE + '/winery/tawse', { waitUntil: 'networkidle' });
 await page.waitForFunction(() => JSON.parse(localStorage.getItem('nv.cellar.v1') || '{}').visits?.tawse);

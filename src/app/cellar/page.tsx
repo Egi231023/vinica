@@ -33,6 +33,7 @@ export default async function CellarPage() {
         vintageNumeric: typeof wine.vintage === 'number' ? String(wine.vintage) : undefined,
         contracted: wine.availability.northAndVine === 'orderable',
         colour: wine.colour,
+        photo: wine.photo,
         bottle: wine.bottle,
         initials: initialsFor(WINERIES_BY_SLUG[wine.winerySlug]?.name ?? wine.name),
       },
