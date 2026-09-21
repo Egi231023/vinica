@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Spread } from '@/components/book/Spread';
@@ -50,6 +51,7 @@ export default async function CellarPage() {
             What you keep: the bottles you liked, the ones you meant to try, and what you thought
             of them.
           </p>
+          <BookArtwork name="cellar-study" />
           <CellarShelves catalogue={catalogue} />
         </>
       }

@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Spread } from '@/components/book/Spread';
@@ -43,6 +44,12 @@ export default async function WineryPlace({ params }: { params: Promise<{ slug: 
           <WineryHead winery={winery} leaf="place" />
 
           <p className="chapter-standfirst">{winery.standfirst}</p>
+
+          <BookArtwork
+            name={winery.region.province === 'BC' ? 'western-vineyard'
+              : winery.region.province === 'NS' ? 'atlantic-vineyard'
+              : 'eastern-vineyard'}
+          />
 
           <h3 className="section-title">Why this producer is in the book</h3>
           <ul className="plain-list">

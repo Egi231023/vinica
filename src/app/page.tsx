@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import Link from 'next/link';
 import { Spread } from '@/components/book/Spread';
 import { CHAPTERS } from '@/data/chapters';
@@ -23,6 +24,8 @@ function Introduction() {
     <>
       <p className="chapter-number">North &amp; Vine</p>
       <h1 className="chapter-title">A book, and a way of buying wine</h1>
+
+      <BookArtwork name="western-vineyard" priority />
 
       <div className="prose lede">
         <p className="dropcap">
@@ -103,6 +106,8 @@ function Contents() {
       </ol>
 
       <hr className="rule-ornament" />
+
+      <BookArtwork name="vine-study" compact />
 
       <ContinueReading />
 

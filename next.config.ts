@@ -20,6 +20,10 @@ const basePath = process.env.NV_BASE_PATH ?? '';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  env: {
+    NEXT_PUBLIC_NV_ASSET_BASE_PATH: isStaticPreview ? basePath : '',
+    ...(isStaticPreview ? { NEXT_PUBLIC_NV_STATIC_PREVIEW: '1' } : {}),
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     // No image optimiser exists on a static host.
@@ -31,7 +35,6 @@ const nextConfig: NextConfig = {
         output: 'export' as const,
         trailingSlash: true,
         basePath: basePath || undefined,
-        env: { NEXT_PUBLIC_NV_STATIC_PREVIEW: '1' },
       }
     : {
         // Response headers are a server feature; a static export has none, and

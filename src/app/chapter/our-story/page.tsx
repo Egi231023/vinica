@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Spread } from '@/components/book/Spread';
@@ -30,6 +31,8 @@ function Story() {
       <p className="chapter-number">Chapter I</p>
       <h1 className="chapter-title">Our Story</h1>
       <p className="chapter-standfirst">Why this exists, in plain terms.</p>
+
+      <BookArtwork name="eastern-vineyard" />
 
       <div className="prose">
         <p className="dropcap">

@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Spread } from '@/components/book/Spread';
@@ -32,6 +33,8 @@ function WhatTrustIs() {
       <p className="chapter-number">Chapter II</p>
       <h1 className="chapter-title">Trust</h1>
       <p className="chapter-standfirst">One membership. Ten cellars. A person who knows yours.</p>
+
+      <BookArtwork name="cellar-study" />
 
       <div className="prose">
         <p className="dropcap">

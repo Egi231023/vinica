@@ -1891,3 +1891,42 @@ code {
   text-transform: uppercase;
   font-size: 0.66rem;
 }
+
+/* Original watercolor plates: white pigment blends into the existing paper.
+   Intrinsic dimensions reserve space; no frame, crop, motion or interaction. */
+.book-art {
+  margin: 0.5rem 0 1.8rem;
+  break-inside: avoid;
+}
+.book-art__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.book-art--compact {
+  width: min(100%, 320px);
+  margin: 1.2rem auto 1.6rem;
+}
+.book-art__caption {
+  margin-top: 0.4rem;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.book-art__credit {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.64rem;
+  font-style: normal;
+  letter-spacing: 0.045em;
+  color: var(--ink-faint);
+}
+@media (max-width: 760px) {
+  .book-art { margin-bottom: 1.4rem; }
+  .book-art--compact { width: min(85%, 280px); }
+}

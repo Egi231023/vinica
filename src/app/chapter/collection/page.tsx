@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { Spread } from '@/components/book/Spread';
@@ -131,6 +132,8 @@ function Caveats({
           in <code>docs/PHOTOGRAPHY.md</code>.
         </p>
       </div>
+
+      <BookArtwork name="vine-study" compact />
 
       <h3 className="section-title">Producers with no verified wines</h3>
       {withoutWines.length === 0 ? (
