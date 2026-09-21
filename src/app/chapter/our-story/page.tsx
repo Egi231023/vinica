@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Spread } from '@/components/book/Spread';
@@ -31,13 +32,12 @@ function Story() {
       <h1 className="chapter-title">Our Story</h1>
       <p className="chapter-standfirst">Why this exists, in plain terms.</p>
 
+      <BookArtwork name="eastern-vineyard" />
+
       <div className="prose">
         <p className="dropcap">
-          Canadian wine is young enough that most of its best producers are still run by the people
-          who planted the vines, or by their children. That is unusual, and it is the reason the
-          stories in this book are as good as they are. A vineyard in the Similkameen or the
-          Gaspereau Valley is not an inherited estate with four centuries of myth attached. It is a
-          decision somebody made, recently, for reasons you can still find out.
+          Wine starts with a place. We want to bring you closer to it: the vineyard, the choices
+          made in the cellar, and the details that make a bottle worth remembering.
         </p>
         <p>
           We love those decisions. Why plant Chardonnay on a ridge that is colder than the bench
@@ -70,11 +70,7 @@ function Story() {
         </p>
       </div>
 
-      <p className="marginal">
-        We have not invented founders, biographies, partnerships or awards for ourselves, and there
-        are none on this page. North &amp; Vine is a service being built; this book is the first
-        part of it that works.
-      </p>
+      <p className="marginal">North &amp; Vine is a service in the making. This book is its first chapter.</p>
     </>
   );
 }
@@ -95,6 +91,7 @@ function Method() {
         The rules we wrote for ourselves before we wrote a word of the book.
       </p>
 
+      <BookArtwork name="harvest-study" compact />
       <h3 className="section-title">Three kinds of sentence</h3>
       <div className="prose">
         <p>

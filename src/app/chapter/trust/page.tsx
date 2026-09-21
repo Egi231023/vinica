@@ -1,7 +1,8 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Spread } from '@/components/book/Spread';
-import { MEMBERSHIP, TRUST_PILLARS, OPEN_BUSINESS_QUESTIONS, COMMERCE_MODE } from '@/config/business';
+import { MEMBERSHIP, TRUST_PILLARS, COMMERCE_MODE } from '@/config/business';
 import { readSession } from '@/lib/session';
 import { TrustJoin } from '@/components/TrustJoin';
 
@@ -17,7 +18,7 @@ export default async function TrustChapter() {
   return (
     <Spread
       leftHead="Chapter II · Trust Membership"
-      rightHead="Terms, and what is not settled"
+      rightHead="Your invitation"
       leftPage={17}
       rightPage={18}
       left={<WhatTrustIs />}
@@ -31,14 +32,15 @@ function WhatTrustIs() {
     <>
       <p className="chapter-number">Chapter II</p>
       <h1 className="chapter-title">Trust</h1>
-      <p className="chapter-standfirst">One membership. Ten cellars. A person who knows yours.</p>
+      <p className="chapter-standfirst">A wider choice. A more personal way to discover.</p>
+
+      <BookArtwork name="trust-passport" />
 
       <div className="prose">
         <p className="dropcap">
-          Trust is a paid membership, and it is the thing that lets you buy. That is the whole
-          model: the membership is the relationship, and the wine follows from it. You are not
-          buying access to a discount table. You are buying a way of being looked after across ten
-          producers instead of one.
+          Trust is our planned membership for exploring wine across selected Canadian producers.
+          The idea is simple: one relationship, a broader selection, and thoughtful help choosing
+          what belongs on your table. We care as much about the service as the bottle.
         </p>
       </div>
 
@@ -51,15 +53,7 @@ function WhatTrustIs() {
         ))}
       </div>
 
-      <hr className="rule-ornament" />
 
-      <div className="prose">
-        <p>
-          Those four are commitments about how the service behaves, and they hold whatever the
-          price turns out to be. You will notice there is no number on this page, and no claim
-          about saving money. That is deliberate: see the facing page.
-        </p>
-      </div>
     </>
   );
 }
@@ -78,12 +72,13 @@ function Terms({ status }: { status: string }) {
   return (
     <>
       <h2 className="chapter-title" style={{ fontSize: 'var(--step-2)' }}>
-        What we have not decided
+        Your invitation
       </h2>
       <p className="chapter-standfirst">
-        An empty line below is an honest empty line, not a placeholder for marketing.
+        Explore the book now. Pricing, bottle allowances and delivery terms will be confirmed before paid membership opens.
       </p>
 
+      <details className="editorial-details"><summary>Membership terms in preparation</summary>
       <dl className="ledger">
         {terms.map((term) => (
           <div key={term.label}>
@@ -100,23 +95,11 @@ function Terms({ status }: { status: string }) {
             </dd>
           </div>
         ))}
-      </dl>
+      </dl></details>
 
-      <p className="gap-note">
-        <strong>On the comparison you may have heard:</strong> the idea behind North &amp; Vine
-        started from a frustration — paying a set sum for three bottles from a single estate, when
-        what you wanted was choice. That is the motivation, not a verified price comparison, and we
-        will not publish it as one or promise to beat anyone&rsquo;s price. Confirmed prices, when
-        they exist, will be in Canadian dollars.
-      </p>
-
-      <h3 className="section-title">Still open on our side</h3>
-      <ul className="plain-list">
-        {OPEN_BUSINESS_QUESTIONS.map((question) => (
-          <li key={question}>{question}</li>
-        ))}
-      </ul>
-
+      <BookArtwork name="sparkling-study" compact />
+      <p className="prose">Start with a place that intrigues you. Save a bottle. Leave a tasting note.
+        Your own discoveries are the beginning of your cellar.</p>
       <hr className="rule-ornament" />
 
       <h3 className="section-title">
@@ -124,15 +107,7 @@ function Terms({ status }: { status: string }) {
       </h3>
       <TrustJoin status={status} />
 
-      <p className="marginal">
-        Membership is checked on the server, not in the browser. Hiding a button is a courtesy;
-        the gate that actually stops an order lives in{' '}
-        <code>src/lib/session.ts</code>. You can read how the trial order works in{' '}
-        <Link className="booklink" href="/basket">
-          the basket
-        </Link>
-        .
-      </p>
+      <p className="marginal">Explore <Link className="booklink" href="/chapter/collection">the collection</Link> or return to <Link className="booklink" href="/cellar">your cellar</Link>.</p>
     </>
   );
 }

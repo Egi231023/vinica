@@ -1,0 +1,181 @@
+{
+  "created": "2026-09-21",
+  "works": [
+    {
+      "key": "estate-closson-chase",
+      "title": "The purple door",
+      "description": "Purple barn and ochre doors among garden flowers.",
+      "sourcePage": "https://www.clossonchase.com/"
+    },
+    {
+      "key": "estate-mission-hill",
+      "title": "Where light gathers",
+      "description": "Mission Hill bell tower above the lake in evening light.",
+      "sourcePage": "https://featured.kelownanow.com/experience-the-okanagan-mission-hill/"
+    },
+    {
+      "key": "estate-cedarcreek",
+      "title": "A roof against the sky",
+      "description": "Dark gabled tasting room framed by a vineyard.",
+      "sourcePage": "https://www.jonesproduct.com/cedarcreek-estate-winery"
+    },
+    {
+      "key": "estate-inniskillin",
+      "title": "A winter pause",
+      "description": "Historic barn and diamond window in a snow-covered vineyard.",
+      "sourcePage": "https://mmdusa.net/portfolio/inniskillin"
+    },
+    {
+      "key": "estate-benjamin-bridge",
+      "title": "The open pavilion",
+      "description": "Timber pavilion beside vines and a forested hill.",
+      "sourcePage": "https://benjaminbridge.com/"
+    },
+    {
+      "key": "estate-lightfoot-wolfville",
+      "title": "A warm welcome",
+      "description": "Oak beams and amber pendant lights inside the winery.",
+      "sourcePage": "https://lightfootandwolfville.com/"
+    },
+    {
+      "key": "estate-nkmip",
+      "title": "Looking over the water",
+      "description": "Iron chairs on a terrace overlooking lake and arid hills.",
+      "sourcePage": "https://www.nkmipcellars.com/The-Winery"
+    },
+    {
+      "key": "estate-orpailleur",
+      "title": "The gathering",
+      "description": "Harvest buckets filled with pale grapes, with a tractor beyond.",
+      "sourcePage": "https://orpailleur.ca/en"
+    },
+    {
+      "key": "estate-tawse",
+      "title": "In careful hands",
+      "description": "Hands holding a cream-labelled wine bottle with a red band.",
+      "sourcePage": "https://tawsewinery.ca/"
+    },
+    {
+      "key": "estate-clos-du-soleil",
+      "title": "Under a mountain sky",
+      "description": "Silver tasting building and blue doorway beneath rugged hills.",
+      "sourcePage": "https://www.tripadvisor.es/Attraction_Review-g183737-d6892595-Reviews-Clos_du_Soleil-Keremeos_British_Columbia.html"
+    },
+    {
+      "key": "trust-passport",
+      "title": "A key to discovery",
+      "description": "Burgundy linen notebook, brass key and a ribbon in an imagined setting.",
+      "sourcePage": null
+    },
+    {
+      "key": "roots-study",
+      "title": "What the earth remembers",
+      "description": "An imagined old vine with winding roots in stony earth.",
+      "sourcePage": null
+    },
+    {
+      "key": "oak-study",
+      "title": "The patience of oak",
+      "description": "Oak barrel on a wooden cradle with leaves and acorns.",
+      "sourcePage": null
+    },
+    {
+      "key": "harvest-study",
+      "title": "The work of a season",
+      "description": "Harvest secateurs beside a basket of purple grapes.",
+      "sourcePage": null
+    },
+    {
+      "key": "ice-study",
+      "title": "Held by winter",
+      "description": "Golden grapes and a vine twig covered in frost and snow.",
+      "sourcePage": null
+    },
+    {
+      "key": "red-aromas",
+      "title": "A study in red",
+      "description": "Blackcurrants, cherries, plum, violet petals and an oak leaf.",
+      "sourcePage": null
+    },
+    {
+      "key": "white-aromas",
+      "title": "A study in light",
+      "description": "Cut pear, lemon peel, white blossom and golden grapes.",
+      "sourcePage": null
+    },
+    {
+      "key": "sparkling-study",
+      "title": "A moment shared",
+      "description": "Two delicate glasses with a cork and an open wire cage.",
+      "sourcePage": null
+    }
+  ],
+  "researchImageRecords": {
+    "reference-images.json": [
+      {
+        "key": "closson-chase",
+        "path": "../references/closson-chase-ref.jpg",
+        "bytes": 266707,
+        "url": "https://www.clossonchase.com/cdn/shop/files/R6__6077_x800.jpg?v=1661190895"
+      },
+      {
+        "key": "tawse",
+        "path": "../references/tawse-ref.jpg",
+        "bytes": 125078,
+        "url": "https://tawsewinery.ca/wp-content/uploads/2026/04/tawse-winery-home-story-bottle-web-1.webp"
+      },
+      {
+        "key": "nkmip",
+        "path": "../references/nkmip-ref.jpg",
+        "bytes": 61662,
+        "url": "https://www.nkmipcellars.com/assets/images/contentblock/photos/the-winery-2.jpg"
+      },
+      {
+        "key": "benjamin-bridge",
+        "path": "../references/benjamin-bridge-ref.jpg",
+        "bytes": 483151,
+        "url": "https://benjaminbridge.com/cdn/shop/files/Winery_hero_5.jpg?v=1775587448&width=1500"
+      },
+      {
+        "key": "lightfoot-wolfville",
+        "path": "../references/lightfoot-wolfville-ref.jpg",
+        "bytes": 127239,
+        "url": "https://lightfootandwolfville.com/cdn/shop/files/january_2024-2_550x750_crop_center.jpg?v=1707495734"
+      },
+      {
+        "key": "orpailleur",
+        "path": "../references/orpailleur-ref.jpg",
+        "bytes": 1990806,
+        "url": "https://orpailleur.ca/cdn/shop/files/Bandeau_vendanges.png?v=1725551366&width=1500"
+      },
+      {
+        "key": "clos-du-soleil",
+        "error": "HTTP Error 403: Forbidden"
+      }
+    ],
+    "extra-references.json": [
+      {
+        "key": "mission-hill",
+        "path": "../references/mission-hill-ref.jpg",
+        "bytes": 92832,
+        "url": "https://featured.kelownanow.com/image/w1000/files/5b71de4b-b680-4e35-8485-4212d8b0b5a9.jpg"
+      },
+      {
+        "key": "cedarcreek",
+        "path": "../references/cedarcreek-ref.jpg",
+        "bytes": 273468,
+        "url": "https://images.squarespace-cdn.com/content/v1/57a10d6a893fc0121ac9a59a/1591314959018-EZAAWJMPVZETB2LFD46M/ccw-tasting0.jpg"
+      },
+      {
+        "key": "inniskillin",
+        "path": "../references/inniskillin-ref.jpg",
+        "bytes": 182871,
+        "url": "https://mmdusa.b-cdn.net/assets/uploads/brandsplashslide/_larger/Barn-in-winter-3483-1585000221.jpg"
+      }
+    ],
+    "final-references.json": {
+      "tawse-estate": "https://ontariowineries.ca/wp-content/uploads/2017/08/Tawse-1.jpg",
+      "clos-du-soleil": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/30/11/27/eb/visit-the-clos-du-soleil.jpg?h=1200&s=1&w=1200"
+    }
+  }
+}

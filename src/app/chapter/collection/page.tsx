@@ -1,3 +1,5 @@
+import { BookArtwork } from '@/components/BookArtwork';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { Spread } from '@/components/book/Spread';
@@ -65,7 +67,7 @@ export default function CollectionChapter() {
   return (
     <Spread
       leftHead="Chapter V · The Collection"
-      rightHead="What the collection does not yet hold"
+      rightHead="A taste for discovery"
       leftPage={121}
       rightPage={122}
       left={
@@ -107,64 +109,25 @@ function Caveats({
   indirect: number;
   total: number;
 }) {
-  return (
-    <>
-      <h2 className="chapter-title" style={{ fontSize: 'var(--step-2)' }}>
-        What is missing
-      </h2>
-      <p className="chapter-standfirst">
-        A catalogue is only as honest as its list of holes. Here is ours.
-      </p>
-
-      <h3 className="section-title">Photography</h3>
-      <div className="prose" style={{ fontSize: 'var(--step--1)' }}>
-        <p>
-          {missingPhotos} of {total} wines have no rights-cleared photograph. Rather than generate
-          convincing imitations of other people&rsquo;s labels — which would be both dishonest and
-          an infringement — every bottle in this book is <em>drawn</em>: the correct silhouette for
-          its shape, the right glass colour, and a plate set in our own lettering. It is
-          recognisably our drawing, not a picture of their label.
-        </p>
-        <p>
-          The fix is not a rendering technique. It is asking each producer for their product or
-          press imagery, with permission in writing. The request letter and the tracking list are
-          in <code>docs/PHOTOGRAPHY.md</code>.
-        </p>
-      </div>
-
-      <h3 className="section-title">Producers with no verified wines</h3>
-      {withoutWines.length === 0 ? (
-        <p style={{ fontSize: 'var(--step--1)', color: 'var(--ink-soft)' }}>
-          None — every producer has at least one verified wine.
-        </p>
-      ) : (
-        <ul className="plain-list">
-          {withoutWines.map((winery) => (
-            <li key={winery.slug}>{winery.name}</li>
-          ))}
-        </ul>
-      )}
-
-      <h3 className="section-title">Vintages</h3>
-      <p className="prose" style={{ fontSize: 'var(--step--1)' }}>
-        Where a source named a wine but not a vintage, the wine reads{' '}
-        <em>Vintage unconfirmed</em>. We do not carry a vintage across from another bottling to fill
-        the space, because two vintages of the same wine are not the same wine.
-      </p>
-
-      <h3 className="section-title">Prices and stock</h3>
-      <p className="prose" style={{ fontSize: 'var(--step--1)' }}>
-        No wine in this collection can be shipped by North &amp; Vine today. There are no supply
-        agreements, no stock, and no selling prices. Where a producer&rsquo;s own list price is
-        known we print it as theirs.
-      </p>
-
-      <p className="gap-note">
-        <strong>How the sources were checked:</strong> {indirect} of the citations in this book were
-        confirmed through search retrieval of the cited page rather than a direct read, because the
-        environment this was built in could not reach those sites. They are labelled{' '}
-        <span className="tag tag--unverified">indirect</span> wherever they appear.
-      </p>
-    </>
-  );
+  return <>
+    <p className="chapter-number">Notes from the tasting table</p>
+    <h2 className="chapter-title">Follow your curiosity.</h2>
+    <p className="chapter-standfirst">A grape you know. A place you don’t. There is more than one way into this book.</p>
+    <BookArtwork name="red-aromas" />
+    <nav className="discovery-links" aria-label="Explore wine styles">
+      <Link href="/chapter/collection?colour=red"><span>I</span> A study in red <span>→</span></Link>
+      <Link href="/chapter/collection?colour=white"><span>II</span> Into the light <span>→</span></Link>
+      <Link href="/chapter/collection?colour=sparkling"><span>III</span> A little celebration <span>→</span></Link>
+      <Link href="/chapter/map"><span>IV</span> Let the map decide <span>→</span></Link>
+    </nav>
+    <p className="marginal">The fruit studies are editorial illustrations, not ingredient lists. Each wine has its own sourced tasting notes.</p>
+    <details className="editorial-details">
+      <summary>About this collection · {total} wines</summary>
+      <p>{missingPhotos} wines currently use illustrated silhouettes while product photography is being arranged.</p>
+      <p>This is a growing selection, not every wine from every producer. Unconfirmed vintages are marked on their pages.</p>
+      <p>North &amp; Vine is not taking wine orders. Producer prices and availability do not represent our stock.</p>
+      {withoutWines.length > 0 && <p>Still to catalogue: {withoutWines.map(w => w.name).join(', ')}.</p>}
+      <p>{indirect} source records were checked indirectly and are labelled in the references.</p>
+    </details>
+  </>;
 }

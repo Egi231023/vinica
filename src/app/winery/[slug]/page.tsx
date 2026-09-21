@@ -1,3 +1,5 @@
+import { estateArtwork, craftArtwork } from '@/data/artwork';
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Spread } from '@/components/book/Spread';
@@ -44,6 +46,8 @@ export default async function WineryPlace({ params }: { params: Promise<{ slug: 
 
           <p className="chapter-standfirst">{winery.standfirst}</p>
 
+          <BookArtwork name={estateArtwork(winery.slug)} priority />
+
           <h3 className="section-title">Why this producer is in the book</h3>
           <ul className="plain-list">
             {winery.selection.reasons.map((reason) => (
@@ -72,6 +76,7 @@ export default async function WineryPlace({ params }: { params: Promise<{ slug: 
       }
       right={
         <>
+          <BookArtwork name="roots-study" compact />
           <h3 className="section-title">Soil and climate</h3>
           <ClaimList claims={winery.soilAndClimate} index={index} />
 
@@ -85,6 +90,7 @@ export default async function WineryPlace({ params }: { params: Promise<{ slug: 
             — the producer&rsquo;s own site. We link it rather than reproduce it.
           </p>
 
+          <BookArtwork name={craftArtwork(winery.slug)} compact />
           <Footnotes index={index} />
         </>
       }

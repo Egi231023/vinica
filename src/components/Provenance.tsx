@@ -99,9 +99,8 @@ export function Footnotes({ index, title = 'Sources' }: { index: SourceIndex; ti
   if (sources.length === 0) return null;
 
   return (
-    <section className="footnotes">
-      <hr className="rule-ornament" />
-      <h3 className="section-title">{title}</h3>
+    <details className="footnotes editorial-details">
+      <summary>{title} · {sources.length} references</summary>
       <ol className="sources-list">
         {sources.map((source, i) => (
           <li key={source.id} id={`source-${source.id}`}>
@@ -121,7 +120,7 @@ export function Footnotes({ index, title = 'Sources' }: { index: SourceIndex; ti
           </li>
         ))}
       </ol>
-    </section>
+    </details>
   );
 }
 

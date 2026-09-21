@@ -7,12 +7,14 @@ import '@fontsource/cormorant-garamond/latin-500.css';
 import '@fontsource/cormorant-garamond/latin-600.css';
 import './globals.css';
 
+import { VisitRecorder } from '@/components/WinePassport';
+import { WINERIES } from '@/data/wineries';
 import { Cover } from '@/components/book/Cover';
 import { BookStage } from '@/components/book/BookStage';
 import { Ribbons } from '@/components/book/Ribbons';
 import { CellarProvider } from '@/lib/cellar';
 import { readSession } from '@/lib/session';
-import { IS_STATIC_PREVIEW, STATIC_PREVIEW_NOTE } from '@/lib/runtime';
+import { IS_STATIC_PREVIEW } from '@/lib/runtime';
 
 export const metadata: Metadata = {
   title: {
@@ -46,10 +48,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </a>
         {IS_STATIC_PREVIEW && (
           <p className="preview-band">
-            <strong>Reading preview.</strong> {STATIC_PREVIEW_NOTE}
+            <strong>The reading edition.</strong> Explore, save and discover. Membership and wine orders are not yet open.
           </p>
         )}
         <CellarProvider memberStatus={session.status}>
+          <VisitRecorder slugs={WINERIES.map(w => w.slug)} />
           <Cover />
           <div className="stage">
             <BookStage>{children}</BookStage>

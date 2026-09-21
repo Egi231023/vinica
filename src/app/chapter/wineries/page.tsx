@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Spread } from '@/components/book/Spread';
@@ -32,6 +33,8 @@ function Preamble() {
       <p className="chapter-standfirst">
         Chosen, not ranked. Here is exactly what that means.
       </p>
+
+      <BookArtwork name="atlantic-vineyard" />
 
       <div className="prose">
         <p className="dropcap">

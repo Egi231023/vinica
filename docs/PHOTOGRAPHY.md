@@ -5,13 +5,9 @@
 **No rights-cleared photograph of any bottle in this book has been obtained.**
 All 31 wines carry `photo.status: 'missing'`.
 
-## What we did instead, and what we refused to do
+## Current presentation
 
-We refused to generate images of the producers' labels. An AI-made imitation of
-a real wine label is two problems at once: it infringes the producer's artwork
-and trade dress, and it puts a fabricated object in a book whose entire claim is
-that it does not fabricate. A convincing fake label would undermine every
-sourced sentence around it.
+Product photographs must depict the actual bottle accurately. Generated label imitations cannot establish packaging or vintage accuracy and should not replace the original assets.
 
 So every bottle is **drawn** (`src/components/Bottle.tsx`): the correct
 silhouette for its bottle shape (Bordeaux, Burgundy, Alsace, sparkling, 375 ml
@@ -51,7 +47,7 @@ without a file or without a credit.
 
 ## The request
 
-Sent to each producer's marketing or media contact:
+Draft for a producer’s marketing or media contact — not sent:
 
 > Subject: Image permission request — North & Vine
 >
@@ -102,3 +98,18 @@ The chapters also want original photography of place — vineyards, cellars,
 people. None has been commissioned. Landscape imagery is easier to license than
 bottle shots and would change how the producer chapters read; it is the second
 photography task after bottles.
+
+
+## Research update — 2026-09-21
+
+Three original Inniskillin bottle images were located in the official MMD distributor materials archive, downloaded for internal inspection and visually checked. The images show Vidal, Vidal Gold and Sparkling Vidal; no vintage is visible. They are linked as current packaging references on four corresponding wine pages, not displayed as licensed photographs of the catalogued vintages.
+
+- Archive: https://mmdusa.net/portfolio/inniskillin/materials/bottle-shot
+- Vidal: https://mmdusa.b-cdn.net/assets/uploads/materials/bottle/Inniskillin-Vidal-6189-1708124433.jpg
+- Gold: https://mmdusa.b-cdn.net/assets/uploads/materials/bottle/Inniskillin-Vidal-Gold-6188-1708124377.jpg
+- Sparkling: https://mmdusa.b-cdn.net/assets/uploads/materials/bottle/Inniskillin-Vidal-sparkling-hi-res-6185-1708124143.jpg
+- Published terms checked: https://www.iubenda.com/terms-and-conditions/75761844 — no permission for this commercial republication was established. Obtain written clearance before hosting copies under this project’s image policy.
+- Clos du Soleil’s trade hub and sales/media page were also checked: https://www.closdusoleil.ca/trade/ and https://www.closdusoleil.ca/sales-media/ . These provide a route to request assets; no cleared bottle pack was obtained.
+- Tawse, Closson Chase, Benjamin Bridge and Nk’Mip public sites were inspected. Product listings or on-site images alone were not treated as a reuse license.
+
+No permission requests have been sent. Product-photo statuses remain unchanged. Next request: obtain the correct vintage assets and an explicit web-use grant, then replace silhouettes through the existing photo metadata path.
