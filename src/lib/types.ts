@@ -213,7 +213,14 @@ export interface Photo {
    *
    * We do not generate label imitations. A gap is shown as a gap.
    */
-  status: 'licensed' | 'requested' | 'missing';
+  status: 'licensed' | 'authorized' | 'requested' | 'missing';
+  /** Authorized means the project owner confirmed permission; no independent licence review is implied. */
+  authorization?: 'owner-confirmed';
+  sourceUrl?: string;
+  originalUrl?: string;
+  alt?: string;
+  match?: 'exact' | 'packaging-reference';
+  note?: string;
   src?: string;
   credit?: string;
   /** Date of the request or the licence. */

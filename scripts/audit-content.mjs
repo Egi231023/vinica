@@ -13,6 +13,7 @@
  * Run with `npm run audit:content`. A failure is a build failure.
  */
 import process from 'node:process';
+import { existsSync } from 'node:fs';
 
 const { WINERIES } = await import('../src/data/wineries.ts');
 const { WINES } = await import('../src/data/wines.ts');
@@ -111,11 +112,18 @@ for (const wine of WINES) {
 
   if (!wine.sources?.length) fail(w, 'a wine with no sources at all');
 
-  if (wine.photo.status === 'licensed' && !wine.photo.src) {
+  if (['licensed', 'authorized'].includes(wine.photo.status) && !wine.photo.src) {
     fail(w, 'claims a licensed photograph but has no file');
   }
-  if (wine.photo.status === 'licensed' && !wine.photo.credit) {
+  if (['licensed', 'authorized'].includes(wine.photo.status) && !wine.photo.credit) {
     fail(w, 'a licensed photograph with no credit');
+  }
+
+  if (wine.photo.status === 'authorized') {
+    if (wine.photo.authorization !== 'owner-confirmed') fail(w, 'missing authorization record');
+    if (!wine.photo.sourceUrl || !wine.photo.originalUrl) fail(w, 'missing original photo provenance');
+    if (!wine.photo.src?.startsWith('/photos/') || !existsSync(`public${wine.photo.src}`)) fail(w, 'photo asset missing');
+    if (wine.photo.match === 'packaging-reference' && !wine.photo.note) fail(w, 'packaging reference needs a visible vintage note');
   }
 
   if (wine.availability.northAndVine === 'orderable') {
@@ -158,7 +166,7 @@ for (const winery of WINERIES) {
 const factCount = facts.filter((c) => c.kind === 'fact').length;
 const interpretationCount = facts.filter((c) => c.kind === 'interpretation').length;
 const indirect = ALL_SOURCES.filter((s) => s.method === 'search-snippet').length;
-const missingPhotos = WINES.filter((w) => w.photo.status !== 'licensed').length;
+const missingPhotos = WINES.filter((w) => !['licensed', 'authorized'].includes(w.photo.status)).length;
 const unspecified = WINES.filter((w) => w.vintage === 'unspecified').length;
 const noWines = WINERIES.filter((w) => !WINES.some((x) => x.winerySlug === w.slug));
 

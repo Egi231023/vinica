@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { useCellar } from '@/lib/cellar';
 import { Bottle } from '@/components/Bottle';
 import type { BasketWine } from '@/components/Basket';
-import type { BottleShape, WineColour } from '@/lib/types';
+import type { BottleShape, WineColour, Photo } from '@/lib/types';
 
 export interface CellarWine extends BasketWine {
   colour: WineColour;
   bottle: BottleShape;
   initials: string;
   vintageNumeric?: string;
+  photo: Photo;
 }
 
 export function CellarShelves({ catalogue }: { catalogue: Record<string, CellarWine> }) {
@@ -116,6 +117,7 @@ function Rack({
               colour={wine.colour}
               producerInitials={wine.initials}
               vintage={wine.vintageNumeric}
+              photo={wine.photo}
               height={132}
             />
             <span className="bottle-link__name">{wine.name}</span>

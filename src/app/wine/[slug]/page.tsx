@@ -77,16 +77,18 @@ export default async function WinePage({ params }: { params: Promise<{ slug: str
               producerInitials={initialsFor(winery?.name ?? wine.name)}
               vintage={typeof wine.vintage === 'number' ? String(wine.vintage) : undefined}
               photo={wine.photo}
-              height={320}
+              height={420}
             />
             <p className="bottle-plate__caption">
-              {wine.photo.status === 'licensed'
+              {(wine.photo.status === 'licensed' || wine.photo.status === 'authorized')
                 ? wine.photo.credit ?? 'Photograph supplied by the producer.'
                 : 'Illustrated bottle silhouette · product photograph pending.'}
             </p>
           </div>
 
-          {bottleReference && <p className="marginal">
+          {wine.photo.sourceUrl && <p className="marginal"><a className="booklink" href={wine.photo.sourceUrl} target="_blank" rel="noopener noreferrer">Photograph source ↗</a></p>}
+
+          {bottleReference && !wine.photo.src && <p className="marginal">
             <a className="booklink" href={bottleReference.url} target="_blank" rel="noopener noreferrer">View the original bottle image ↗</a><br />
             {bottleReference.source}. {bottleReference.note}
           </p>}

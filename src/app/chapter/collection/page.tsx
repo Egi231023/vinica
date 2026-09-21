@@ -52,7 +52,8 @@ function toEntries(): CollectionEntry[] {
       appellation: wine.region.appellation,
       grapes,
       availability: wine.availability.producer,
-      hasPhoto: wine.photo.status === 'licensed',
+      hasPhoto: wine.photo.status === 'licensed' || wine.photo.status === 'authorized',
+      photo: wine.photo,
       haystack,
     };
   });
