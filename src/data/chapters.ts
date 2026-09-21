@@ -47,6 +47,7 @@ export function readingOrder(): { href: string; label: string; page: number }[] 
     spine.push({ href: `/winery/${w.slug}/cellar`, label: `${w.shortName}: The wines`, page: first + 4 });
   }
   spine.push({ href: '/chapter/collection', label: 'The Collection', page: 121 });
+  spine.push({ href: '/chapter/first-bottle', label: 'Find your first bottle', page: 123 });
   spine.push({ href: '/cellar', label: 'Your Cellar', page: 161 });
   return spine;
 }

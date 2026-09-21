@@ -35,7 +35,7 @@ function Introduction() {
     <p className="signature">For the love of wine. — North &amp; Vine</p>
     <div className="editorial-actions">
       <Link className="btn" href="/chapter/trust">Discover Trust →</Link>
-      <Link className="booklink" href="/chapter/map">Find your first vineyard</Link>
+      <Link className="booklink" href="/chapter/first-bottle">Find your first bottle</Link>
     </div>
     <p className="marginal">{WINERIES.length} selected producers · {WINES.length} documented wines.
       This is our reading edition; paid membership and deliveries are not yet open.</p>

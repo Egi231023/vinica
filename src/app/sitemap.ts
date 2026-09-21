@@ -12,6 +12,7 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://northandvine.example';
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
     '/',
+    '/chapter/first-bottle',
     ...CHAPTERS.map((chapter) => chapter.href),
     ...WINERIES.flatMap((winery) => [
       `/winery/${winery.slug}`,

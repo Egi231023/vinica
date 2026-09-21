@@ -113,6 +113,7 @@ function Caveats({
     <p className="chapter-number">Notes from the tasting table</p>
     <h2 className="chapter-title">Follow your curiosity.</h2>
     <p className="chapter-standfirst">A grape you know. A place you don’t. There is more than one way into this book.</p>
+    <p><Link className="btn" href="/chapter/first-bottle">Find your first bottle →</Link></p>
     <BookArtwork name="red-aromas" />
     <nav className="discovery-links" aria-label="Explore wine styles">
       <Link href="/chapter/collection?colour=red"><span>I</span> A study in red <span>→</span></Link>

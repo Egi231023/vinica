@@ -30,6 +30,9 @@ jobs:
       # The rules of the book, enforced: an unsourced fact, a dangling or
       # orphaned source, a wine claiming a photograph it does not have, or a
       # pin outside Canada all fail here.
+      - name: Recommendation checks
+        run: node --experimental-strip-types scripts/check-wine-guide.mjs
+
       - name: Content audit
         run: npm run audit:content
 
