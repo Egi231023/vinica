@@ -2,11 +2,15 @@
 
 The project owner explicitly confirmed that all ten wineries cooperate and permit original bottle photography on this website, including background removal. This is owner-reported authorization, not an independently inspected licence. It supersedes the earlier publication hold below. No private agreement or personal data is committed. Image metadata uses `authorized` / `owner-confirmed`, not `licensed`.
 
-Ten original producer/distributor assets are displayed on eleven catalogue entries. NV Brut matches the non-vintage product; the other ten entries visibly label their image as a packaging reference, including 2024 where that year is printed. Catalogue vintages and descriptions have not been changed to match images. The remaining 20 entries retain silhouettes pending suitable assets.
+Twenty-one original producer/distributor assets are displayed on 23 catalogue entries. NV Brut matches the non-vintage product; the other 22 entries visibly label their image as a packaging reference. Each new reference identifies the producer release and the catalogue vintage, or says that the catalogue vintage is unconfirmed. Catalogue vintages and descriptions have not been changed to match images. The remaining eight entries retain silhouettes pending suitable assets.
 
 Original labels and geometry are preserved. Assets are resized and encoded as WebP; existing alpha is retained. White studio backgrounds blend with the paper using CSS, rather than inventing or repainting labels. These are not all transparent cutout files. Provenance is recorded in `src/data/bottle-photos.ts`. The catalogue, winery shelves, guide and personal cellar share the same image metadata.
 
-Additional sourcing: public Nk’Mip product pages supplied Riesling and White Mer’r’iym photographs. Mission Hill, CedarCreek and Clos du Soleil download attempts returned HTTP 403; their public collection pages did not expose usable product assets in the available text. Tawse’s product page exposed no product photograph. No substitute labels were manufactured for these gaps.
+Additional sourcing: the second batch adds 11 original assets to 12 entries across Tawse, Mission Hill, Clos du Soleil, CedarCreek and Benjamin Bridge. The first four producers expose public Commerce7 storefront product feeds; their tenant identifiers were read from the official websites. Benjamin Bridge publishes its Shopify product feed. Product and original asset URLs are recorded per entry. CedarCreek uses the producer's second product image, which contains the bottle and award badge without the vineyard backdrop. Producer-supplied award badges are preserved and refer to the depicted release, not an older catalogue vintage.
+
+The 2024 Compendium image was rejected because its label identifies Columbia Valley, while our catalogue describes an Okanagan wine. The 2024 Quarry Road Chardonnay photograph is only a packaging reference for the 2014 oaked Chardonnay entry; it is not assigned to the separate unoaked wine. No magnum or gift-set images replace standard bottles.
+
+Remaining silhouettes: Tawse Quarry Road Unoaked Chardonnay 2024, Quarry Road Riesling 2019, Grower's Blend Pinot Gris, Sketches Chardonnay; Closson Chase South Clos Pinot Noir 2023; Mission Hill Compendium; CedarCreek Platinum Block 2 Pinot Noir 2014 and Aspect Block 3 Riesling 2020.
 
 ## Historical research record (superseded permission status)
 
