@@ -59,12 +59,11 @@ export default async function CellarPage() {
         <>
           <h3 className="section-title">Where this is kept</h3>
           <p className="gap-note">
-            <strong>Not yet on our servers:</strong> your saved bottles and tasting notes are stored
-            in this browser only. There is no account system yet, so they will not follow you to
-            another device, and clearing your browser data will clear them. We would rather tell you
-            that than let you assume otherwise.
+            Your saved bottles and tasting notes stay in this browser. They do not sync to another
+            device, and clearing browser data removes them.
           </p>
 
+          <BookArtwork name="trust-passport" compact />
           <h3 className="section-title">Membership</h3>
           <TrustJoin status={session.status} />
 

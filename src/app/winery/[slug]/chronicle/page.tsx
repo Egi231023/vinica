@@ -1,3 +1,5 @@
+import { BookArtwork } from '@/components/BookArtwork';
+import { craftArtwork } from '@/data/artwork';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Spread } from '@/components/book/Spread';
@@ -92,10 +94,12 @@ export default async function WineryChronicle({ params }: { params: Promise<{ sl
       }
       right={
         <>
+          <BookArtwork name={craftArtwork(winery.slug)} />
           <h3 className="section-title">Things worth knowing</h3>
           <ClaimList claims={winery.curiosities} index={index} />
 
-          <section className="tipped-in">
+          <details className="tipped-in editorial-details">
+            <summary>Inside the notebook · questions for the winemaker</summary>
             <h4 className="tipped-in__title">Tipped in: what we would ask</h4>
             <p style={{ fontSize: 'var(--step--1)', color: 'var(--ink-soft)', marginTop: 0 }}>
               These are unanswered. We have not spoken to this producer, and nothing below is
@@ -110,7 +114,7 @@ export default async function WineryChronicle({ params }: { params: Promise<{ sl
                 </li>
               ))}
             </ol>
-          </section>
+          </details>
 
           <Footnotes index={index} />
         </>

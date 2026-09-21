@@ -1,3 +1,5 @@
+import { BookArtwork } from '@/components/BookArtwork';
+import { estateArtwork } from '@/data/artwork';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Spread } from '@/components/book/Spread';
@@ -83,6 +85,7 @@ export default async function WineryCellar({ params }: { params: Promise<{ slug:
       }
       right={
         <>
+          <BookArtwork name={estateArtwork(winery.slug)} />
           <h3 className="section-title">How complete this shelf is</h3>
           <dl className="ledger">
             <div>

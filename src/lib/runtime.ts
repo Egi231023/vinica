@@ -17,4 +17,4 @@ export const IS_STATIC_PREVIEW = process.env.NEXT_PUBLIC_NV_STATIC_PREVIEW === '
 
 /** One sentence, used wherever a server-only affordance is stood down. */
 export const STATIC_PREVIEW_NOTE =
-  'This is the static reading preview on GitHub Pages. Membership is verified on a server, and there is no server here — so joining, the basket and ordering are switched off rather than faked. Everything else in the book works.';
+  'This reading edition lets you explore the wineries, save bottles and keep tasting notes. Membership, checkout and deliveries are not open yet.';

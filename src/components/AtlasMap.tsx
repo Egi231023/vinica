@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from 'react';
 import Link from 'next/link';
+import { estateArtwork } from '@/data/artwork';
 import markers from '@/data/generated/map-markers.json';
 
 /**
@@ -59,7 +60,7 @@ export function AtlasMap({
   /** The coastline, drawn on the server and handed in as markup. */
   plate: ReactNode;
 }) {
-  const [open, setOpen] = useState<Cluster | null>(null);
+  const [open, setOpen] = useState<Cluster | null>(data.clusters[0] ?? null);
 
   return (
     <div className="atlas">
@@ -104,7 +105,7 @@ export function AtlasMap({
                   stroke="#f2ead9"
                   strokeWidth="2"
                   style={{ cursor: 'pointer', transition: 'r 160ms ease' }}
-                  onClick={() => setOpen(isOpen ? null : cluster)}
+                  onClick={() => setOpen(cluster)}
                 />
                 {cluster.members.length > 1 && (
                   <text
@@ -139,7 +140,7 @@ export function AtlasMap({
             type="button"
             className="atlas__chip"
             aria-pressed={open?.id === cluster.id}
-            onClick={() => setOpen(open?.id === cluster.id ? null : cluster)}
+            onClick={() => setOpen(cluster)}
           >
             {cluster.label}
             {cluster.members.length > 1 && <span> ({cluster.members.length})</span>}
@@ -155,6 +156,7 @@ export function AtlasMap({
               {open.members.map((pin) => (
                 <li key={pin.slug}>
                   <Link className="atlas__entry" href={`/winery/${pin.slug}`}>
+                    <img className="atlas__estate-art" src={`${process.env.NEXT_PUBLIC_NV_ASSET_BASE_PATH ?? ''}/art/${estateArtwork(pin.slug)}-480.webp`} width={480} height={320} alt={`Artistic study of ${pin.name}`} loading="lazy" />
                     <span className="atlas__entry-name">{pin.name}</span>
                     <span className="atlas__entry-meta">
                       {pin.settlement} · {pin.region}

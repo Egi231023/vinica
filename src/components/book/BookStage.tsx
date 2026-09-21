@@ -20,7 +20,8 @@ import { readingOrder } from '@/data/chapters';
 const SPINE = readingOrder();
 
 function neighbours(pathname: string) {
-  const index = SPINE.findIndex((entry) => entry.href === pathname);
+  const cleanPath = pathname.replace(/\/$/, '') || '/';
+  const index = SPINE.findIndex((entry) => entry.href === cleanPath);
   if (index < 0) return { prev: null, next: null };
   return {
     prev: index > 0 ? SPINE[index - 1] : null,
@@ -76,11 +77,12 @@ export function BookStage({ children }: { children: React.ReactNode }) {
   /* Keys, but never while someone is typing. */
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      if (document.querySelector('dialog[open]')) return;
       const target = event.target as HTMLElement | null;
       if (
         target &&
         (target.isContentEditable ||
-          ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName))
+          ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'SUMMARY'].includes(target.tagName))
       ) {
         return;
       }
@@ -103,6 +105,7 @@ export function BookStage({ children }: { children: React.ReactNode }) {
   }, [go, next, prev]);
 
   const onTouchStart = (event: React.TouchEvent) => {
+    if (document.querySelector('dialog[open]') || (event.target as HTMLElement).closest('button, input, select, textarea, a, summary')) { touchStart.current = null; return; }
     const t = event.touches[0];
     touchStart.current = { x: t.clientX, y: t.clientY };
   };

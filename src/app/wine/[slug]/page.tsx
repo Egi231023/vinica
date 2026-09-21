@@ -1,3 +1,4 @@
+import { BookArtwork } from '@/components/BookArtwork';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -79,7 +80,7 @@ export default async function WinePage({ params }: { params: Promise<{ slug: str
             <p className="bottle-plate__caption">
               {wine.photo.status === 'licensed'
                 ? wine.photo.credit ?? 'Photograph supplied by the producer.'
-                : 'Drawn to the correct bottle shape and glass colour. No photograph of this bottle has been licensed yet, and we do not fabricate labels.'}
+                : 'Illustrated bottle silhouette · product photograph pending.'}
             </p>
           </div>
 
@@ -89,6 +90,9 @@ export default async function WinePage({ params }: { params: Promise<{ slug: str
               <ClaimList claims={wine.story} index={index} />
             </>
           )}
+
+          <BookArtwork name={wine.colour === 'sparkling' ? 'sparkling-study' : wine.colour === 'red' ? 'red-aromas' : wine.colour === 'dessert' ? 'ice-study' : 'white-aromas'} compact />
+          <p className="marginal">An editorial study of the wine world. See the tasting notes for this bottle’s documented profile.</p>
 
           <WineActions
             slug={wine.slug}

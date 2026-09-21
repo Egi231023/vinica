@@ -54,6 +54,9 @@ export function Collection({ entries }: { entries: CollectionEntry[] }) {
 
   const [query, setQuery] = useState(() => params.get('q') ?? '');
   const deferredQuery = useDeferredValue(query);
+  const [shelf, setShelf] = useState(1);
+  useEffect(() => { setShelf(1); }, [params.toString(), deferredQuery]);
+  useEffect(() => { setQuery(params.get('q') ?? ''); }, [params.get('q')]);
 
   const colour = params.get('colour');
   const province = params.get('province');
@@ -122,6 +125,9 @@ export function Collection({ entries }: { entries: CollectionEntry[] }) {
       );
   }, [entries, deferredQuery, colour, province, winery, availability, grape]);
 
+  const pageCount = Math.max(1, Math.ceil(results.length / 6));
+  const currentShelf = Math.min(shelf, pageCount);
+  const visibleResults = results.slice((currentShelf - 1) * 6, currentShelf * 6);
   const activeFilters = [colour, province, winery, availability, grape].filter(Boolean).length;
 
   return (
@@ -249,7 +255,7 @@ export function Collection({ entries }: { entries: CollectionEntry[] }) {
         </p>
       ) : (
         <ul className="collection__grid">
-          {results.map((entry) => (
+          {visibleResults.map((entry) => (
             <li key={entry.slug}>
               <Link className="bottle-link" href={`/wine/${entry.slug}`}>
                 <Bottle
@@ -271,6 +277,11 @@ export function Collection({ entries }: { entries: CollectionEntry[] }) {
           ))}
         </ul>
       )}
+      {pageCount > 1 && <nav className="shelf-pagination" aria-label="Collection shelves">
+        <button className="btn btn--quiet" type="button" disabled={currentShelf === 1} onClick={() => setShelf(currentShelf - 1)}>← Previous</button>
+        <span role="status">Shelf {currentShelf} of {pageCount}</span>
+        <button className="btn btn--quiet" type="button" disabled={currentShelf === pageCount} onClick={() => setShelf(currentShelf + 1)}>Next →</button>
+      </nav>}
     </div>
   );
 }
