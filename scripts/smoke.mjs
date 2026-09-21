@@ -66,11 +66,14 @@ check('cover is not replayed on return', (await firstVisit.locator('.cover-stage
 await firstVisit.close();
 
 await page.goto(BASE + '/', { waitUntil: 'networkidle' });
+// Status-code visits may leave before hydration records the introduction.
+// Page navigation is deliberately disabled until the opening has completed.
+await page.locator('.cover-stage').waitFor({ state: 'detached' });
 await page.keyboard.press('ArrowRight');
-await page.waitForTimeout(900);
+await page.waitForURL(BASE + '/chapter/our-story');
 check('arrow key turns the page', new URL(page.url()).pathname === '/chapter/our-story');
 await page.getByRole('navigation', { name: 'Page navigation' }).getByRole('button', { name: /Next page/ }).click();
-await page.waitForTimeout(900);
+await page.waitForURL(BASE + '/chapter/trust');
 check('labelled next-page control turns', new URL(page.url()).pathname === '/chapter/trust');
 await page.goBack();
 await page.waitForTimeout(700);
