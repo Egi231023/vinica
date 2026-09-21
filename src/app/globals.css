@@ -1870,3 +1870,24 @@ code {
   width: 4.2rem;
   text-align: center;
 }
+
+/* ── The static preview band ─────────────────────────────────────────────── */
+
+.preview-band {
+  margin: 0;
+  padding: 0.5rem clamp(1rem, 4vw, 2rem);
+  background: var(--bordeaux-deep);
+  color: var(--gold-pale);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-align: center;
+  border-bottom: 1px solid var(--gold-faint);
+}
+.preview-band strong {
+  color: var(--paper);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.66rem;
+}

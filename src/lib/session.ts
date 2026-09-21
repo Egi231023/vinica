@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual, randomUUID } from 'node:crypto';
 import { cookies } from 'next/headers';
 import { COMMERCE_MODE, commerceIsLive } from '@/config/business';
+import { IS_STATIC_PREVIEW } from './runtime';
 
 /**
  * Membership state lives on the server.
@@ -69,6 +70,10 @@ function decode(raw: string | undefined): MemberSession {
 }
 
 export async function readSession(): Promise<MemberSession> {
+  /* The static reading preview has no request and no cookie jar. Reading one
+     would also force every page to render on demand, which a static export
+     cannot do. Nobody is a member there, and the pages say so. */
+  if (IS_STATIC_PREVIEW) return EMPTY;
   const jar = await cookies();
   return decode(jar.get(COOKIE)?.value);
 }

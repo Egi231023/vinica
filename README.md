@@ -8,10 +8,27 @@ source and the date we checked it, and every gap is shown as a gap.*
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npm run build      # map → content audit → next build
+npm run dev            # http://localhost:3000
+npm run build          # map → content audit → next build
 npm run audit:content
+npm run build:preview  # the static reading preview, into out/
+npm run smoke          # end-to-end, against a running build
 ```
+
+## Two builds
+
+| | `npm run build` | `npm run build:preview` |
+|---|---|---|
+| Runs on | a Node server | any static host (GitHub Pages) |
+| The book, map, producers, collection, cellar | ✅ | ✅ |
+| Membership, basket, trial ordering | ✅ | switched off, and says so |
+
+The preview exists so the book can be read from a link. It is not a reduced
+version of the design — every page, chapter and wine is there. What it cannot
+have is a server, and membership is verified on a server by design, so the
+preview stands those affordances down and explains why rather than faking them.
+`scripts/build-static-preview.mjs` swaps the two Server Action modules for the
+stubs beside them for the duration of that build, and restores them afterwards.
 
 ## What this is
 
@@ -60,14 +77,14 @@ throws if live mode is set without a session secret.
 
 Membership is verified **on the server**, from a signed HTTP-only cookie, on
 every order. Hiding buttons is a courtesy; the gate is in
-`src/app/actions/orders.ts`.
+`src/server/actions/orders.ts`.
 
 ## Layout
 
 ```
 src/
   app/            routes — one per chapter, producer leaf and wine
-    actions/      server actions: membership, orders
+  server/actions/ Server Actions: membership, orders (+ static stubs)
   components/     the book (stage, spread, cover, ribbons) and the content parts
     book/
   config/         business.ts — every unconfirmed commercial parameter

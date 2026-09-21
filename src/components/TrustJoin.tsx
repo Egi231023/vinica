@@ -2,7 +2,8 @@
 
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { startTrial, endTrial, type ActionResult } from '@/app/actions/membership';
+import { startTrial, endTrial, type ActionResult } from '@/server/actions/membership';
+import { IS_STATIC_PREVIEW, STATIC_PREVIEW_NOTE } from '@/lib/runtime';
 
 /**
  * Joining, in trial mode.
@@ -13,6 +14,14 @@ import { startTrial, endTrial, type ActionResult } from '@/app/actions/membershi
  */
 export function TrustJoin({ status }: { status: string }) {
   const [result, formAction] = useActionState<ActionResult | null, FormData>(startTrial, null);
+
+  if (IS_STATIC_PREVIEW) {
+    return (
+      <p className="notice">
+        <strong>Membership is switched off here.</strong> {STATIC_PREVIEW_NOTE}
+      </p>
+    );
+  }
 
   if (status === 'trial' || status === 'active') {
     return (

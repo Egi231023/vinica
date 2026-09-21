@@ -76,7 +76,7 @@ export default async function BasketPage() {
             <p>
               Membership is a signed, HTTP-only cookie, verified on the server on every order.
               Hiding the order button is a courtesy for the reader; the check that stops an order
-              is in <code>src/lib/session.ts</code> and <code>src/app/actions/orders.ts</code>, and
+              is in <code>src/lib/session.ts</code> and <code>src/server/actions/orders.ts</code>, and
               runs whatever the browser sends.
             </p>
             <p>

@@ -12,6 +12,7 @@ import { BookStage } from '@/components/book/BookStage';
 import { Ribbons } from '@/components/book/Ribbons';
 import { CellarProvider } from '@/lib/cellar';
 import { readSession } from '@/lib/session';
+import { IS_STATIC_PREVIEW, STATIC_PREVIEW_NOTE } from '@/lib/runtime';
 
 export const metadata: Metadata = {
   title: {
@@ -43,6 +44,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <a className="skip-link" href="#page-content">
           Skip to the page
         </a>
+        {IS_STATIC_PREVIEW && (
+          <p className="preview-band">
+            <strong>Reading preview.</strong> {STATIC_PREVIEW_NOTE}
+          </p>
+        )}
         <CellarProvider memberStatus={session.status}>
           <Cover />
           <div className="stage">

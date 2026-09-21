@@ -75,3 +75,23 @@ was invisible to the cellar page listing it. A database makes this disappear.
 EB Garamond and Cormorant Garamond are installed as packages and self-hosted.
 No third-party font request at runtime, no layout shift waiting on Google, and
 the build works in a network-restricted environment.
+
+## The static preview declines rather than pretends
+
+GitHub Pages serves files, not a server. The options were to water the real
+service down to what a static host allows — moving membership into the browser,
+where it would be decoration — or to publish a preview that does everything
+except the parts that genuinely need a server, and says so on the page.
+
+The second. `NV_STATIC_PREVIEW=1` produces an export in which `readSession`
+returns nobody, the Trust form, the basket checkout and the order button are
+replaced by a sentence explaining that membership is verified on a server and
+there is no server here, and a band across the top says the same. Reading,
+the map, the collection, saving bottles and tasting notes all work, because
+none of them needs one.
+
+The module swap is done by a build script rather than a bundler alias because
+Next detects a Server Action by its `'use server'` directive, not by who
+imports it — a `resolve.alias` is silently ignored, which cost an hour to find.
+The script restores the originals in a `finally` and on SIGINT, so an
+interrupted build cannot leave stubs in the working tree.

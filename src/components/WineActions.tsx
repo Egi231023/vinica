@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useCellar } from '@/lib/cellar';
+import { IS_STATIC_PREVIEW, STATIC_PREVIEW_NOTE } from '@/lib/runtime';
 
 /**
  * What a reader can do with a bottle.
@@ -69,7 +70,12 @@ export function WineActions({
         </p>
       )}
 
-      {!isMember ? (
+      {IS_STATIC_PREVIEW ? (
+        <p className="notice">
+          <strong>Ordering is switched off here.</strong> {STATIC_PREVIEW_NOTE} Saving bottles and
+          writing tasting notes still work — they live in your browser.
+        </p>
+      ) : !isMember ? (
         <p className="notice">
           Ordering is what <Link className="booklink" href="/chapter/trust">Trust membership</Link>{' '}
           unlocks. A trial membership takes no payment details.

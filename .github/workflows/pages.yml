@@ -1,0 +1,63 @@
+name: Reading preview
+
+# Publishes the static reading preview to GitHub Pages.
+#
+# Pages serves files, not a server, so membership, the basket and ordering are
+# switched off in this build and say so on the page. The full service — with
+# server-side membership verification and trial ordering — is what `npm run
+# build` produces, and is what CI tests.
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build the preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - run: npm ci
+
+      - name: Build the static reading preview
+        # A project site lives at /<repo>, so the app is built with that base
+        # path. configure-pages reports it, which keeps this correct if the
+        # repository is ever renamed or moved to a custom domain.
+        run: node scripts/build-static-preview.mjs --base-path "${{ steps.pages.outputs.base_path }}"
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.origin }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -46,10 +46,25 @@ for (const [path, expected] of [
 }
 
 console.log('\nThe book opens and turns');
-await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-check('cover plays', (await page.locator('.cover-stage').count()) === 1);
-await page.waitForTimeout(2600);
-check('cover clears itself', (await page.locator('.cover-stage').count()) === 0);
+/* The cover plays once per session by design, and the status-code checks above
+   already opened the book — so this needs a browser that has not seen it. */
+const firstVisit = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+await firstVisit.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+/* The cover is client-rendered, so it appears on hydration rather than in the
+   first paint. Wait for it rather than sampling at an arbitrary moment. */
+const coverPlayed = await firstVisit
+  .waitForSelector('.cover-stage', { timeout: 5000 })
+  .then(() => true)
+  .catch(() => false);
+check('cover plays on a first visit', coverPlayed);
+await firstVisit.waitForTimeout(3000);
+check('cover clears itself', (await firstVisit.locator('.cover-stage').count()) === 0);
+await firstVisit.reload({ waitUntil: 'domcontentloaded' });
+await firstVisit.waitForTimeout(250);
+check('cover is not replayed on return', (await firstVisit.locator('.cover-stage').count()) === 0);
+await firstVisit.close();
+
+await page.goto(BASE + '/', { waitUntil: 'networkidle' });
 await page.keyboard.press('ArrowRight');
 await page.waitForTimeout(900);
 check('arrow key turns the page', new URL(page.url()).pathname === '/chapter/our-story');

@@ -4,7 +4,8 @@ import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import Link from 'next/link';
 import { useCellar } from '@/lib/cellar';
-import { placeOrder, type OrderResult } from '@/app/actions/orders';
+import { placeOrder, type OrderResult } from '@/server/actions/orders';
+import { IS_STATIC_PREVIEW, STATIC_PREVIEW_NOTE } from '@/lib/runtime';
 
 export interface BasketWine {
   slug: string;
@@ -116,7 +117,11 @@ export function Basket({ catalogue }: { catalogue: Record<string, BasketWine> })
         </p>
       )}
 
-      {memberStatus === 'none' || memberStatus === 'lapsed' ? (
+      {IS_STATIC_PREVIEW ? (
+        <p className="notice">
+          <strong>Checkout is switched off here.</strong> {STATIC_PREVIEW_NOTE}
+        </p>
+      ) : memberStatus === 'none' || memberStatus === 'lapsed' ? (
         <p className="notice">
           Ordering is what Trust membership unlocks.{' '}
           <Link className="booklink" href="/chapter/trust">
