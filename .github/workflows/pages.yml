@@ -36,11 +36,15 @@ jobs:
       - name: Configure Pages
         id: pages
         uses: actions/configure-pages@v5
-        with:
-          # Turns Pages on for the repository and points it at Actions, so the
-          # first run on a fresh repo deploys instead of failing on a setting
-          # nobody has clicked yet.
-          enablement: true
+        # One-time setup, once per repository:
+        #   Settings → Pages → Build and deployment → Source: GitHub Actions
+        #
+        # This job cannot do it for you. `enablement: true` looks like the
+        # answer and is not: creating a Pages site needs repository-admin
+        # scope, and the workflow's GITHUB_TOKEN does not have it, however
+        # many permissions the job declares. It fails with "Resource not
+        # accessible by integration". Once the setting is on, this step just
+        # reads it and every later push deploys on its own.
 
       - run: npm ci
 

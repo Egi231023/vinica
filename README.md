@@ -109,6 +109,17 @@ are grouped rather than nudged apart, and labels are laid out with a collision
 pass. The 280 kB of coastline renders in a server component; the client ships
 6 kB of markers.
 
+## The reading preview on GitHub Pages
+
+`.github/workflows/pages.yml` builds and deploys the preview on every push.
+It needs one setting turned on by hand, once per repository:
+
+> **Settings → Pages → Build and deployment → Source: _GitHub Actions_**
+
+The workflow cannot do this for itself — creating a Pages site needs
+repository-admin scope, which a workflow's `GITHUB_TOKEN` does not have. Once
+it is on, every push deploys without further intervention.
+
 ## Environment
 
 | Variable | Purpose |
