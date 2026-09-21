@@ -24,19 +24,13 @@ function Introduction() {
     <p className="chapter-number">North &amp; Vine · The first edition</p>
     <h1 className="chapter-title">Good wine.<br /><em>A wider world.</em></h1>
     <p className="chapter-standfirst">Ten Canadian wineries. One curious spirit.</p>
-    <BookArtwork name="western-vineyard" priority />
-    <div className="prose lede">
-      <p className="dropcap">We love wine for what it opens: a place, a story, a conversation.
-        North &amp; Vine brings remarkable Canadian producers into one book, so your next discovery
-        can begin far beyond a single vineyard.</p>
-      <p><strong>Trust</strong> is the membership we are building around that idea.
-        More choice across producers, thoughtful service, and a cellar that remembers your taste.</p>
+    <p className="intro-promise">Discover wines across Canadian producers, find a bottle for your taste, and keep your favourites in your own cellar.</p>
+    <div className="editorial-actions intro-actions">
+      <Link className="btn" href="/chapter/first-bottle">Find my first bottle →</Link>
+      <Link className="booklink" href="/chapter/collection">Browse all wines</Link>
     </div>
-    <p className="signature">For the love of wine. — North &amp; Vine</p>
-    <div className="editorial-actions">
-      <Link className="btn" href="/chapter/trust">Discover Trust →</Link>
-      <Link className="booklink" href="/chapter/first-bottle">Find your first bottle</Link>
-    </div>
+    <div className="intro-art"><BookArtwork name="western-vineyard" priority /></div>
+    <p className="intro-membership"><strong>One membership. A wider choice.</strong> Trust is the club we are building for people who love wine and thoughtful service. <Link className="booklink" href="/chapter/trust">Meet Trust →</Link></p>
     <p className="marginal">{WINERIES.length} selected producers · {WINES.length} documented wines.
       This is our reading edition; paid membership and deliveries are not yet open.</p>
   </>;
@@ -47,9 +41,9 @@ function Contents() {
     <>
       <p className="chapter-number">The book</p>
       <h2 className="chapter-title">Contents</h2>
-      <p className="chapter-standfirst">Six chapters. Every line below opens.</p>
+      <p className="chapter-standfirst">Choose a chapter, or use the menu above at any time.</p>
 
-      <ol className="contents">
+      <ol className="contents contents--clear">
         {CHAPTERS.map((chapter) => (
           <li className="contents__item" key={chapter.slug}>
             <Link className="contents__link" href={chapter.href}>
@@ -69,15 +63,10 @@ function Contents() {
         ))}
       </ol>
 
-      <hr className="rule-ornament" />
-
-      <BookArtwork name="vine-study" compact />
-
       <ContinueReading />
 
       <p className="marginal">
-        Turn pages with the corner of the paper, the arrow keys, or a swipe. The ribbons on the
-        edge keep the contents, collection, cellar and basket within reach.
+        Read in order using Next page below, or jump straight to any chapter. You can also use arrow keys or swipe.
       </p>
     </>
   );
